@@ -10,4 +10,9 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
     ],
+    'container' => [
+        'singletons' => [
+            'FileService' => ['class' => 'common\services\FileService'],
+        ],
+    ],
 ];

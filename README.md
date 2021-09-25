@@ -1,60 +1,32 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Advanced Project Template</h1>
-    <br>
-</p>
+# Турнирная таблица
 
-Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-developing complex Web applications with multiple tiers.
+## Развертывание
 
-The template includes three tiers: front end, back end, and console, each of which
-is a separate Yii application.
+- Стандартные шаги по развертыванию приложения yii2 (`composer install`, `yii migrate/up` и т.д.)
+- После применения миграций, доступы для входа в backend - admin@admin.com:admin
+- Служебные файлы вроде init.bat оставлены умышленно для удобного развертывания без исходной базы
 
-The template is designed to work in a team development environment. It supports
-deploying the application in different environments.
+## Задание
+###Необходимо реализовать турнирную таблицу.
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+###При разработке необходимо использовать 
+ - Yii2 advanced - используется
+ - база данных на выбор Mysql, Postgres (оформите через миграции Yii); - Используется MySQL
+ - конечный результат - репозиторий на https://github.com/ или https://bitbucket.org/ и инструкция по запуску приложения - выложено на github
 
-[![Latest Stable Version](https://img.shields.io/packagist/v/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![Total Downloads](https://img.shields.io/packagist/dt/yiisoft/yii2-app-advanced.svg)](https://packagist.org/packages/yiisoft/yii2-app-advanced)
-[![build](https://github.com/yiisoft/yii2-app-advanced/workflows/build/badge.svg)](https://github.com/yiisoft/yii2-app-advanced/actions?query=workflow%3Abuild)
+###Публичная часть
+ - вывод турнирной таблицы  (место, команда, кол-во очков*, кол-во голов). Сортировка по месту от меньшего к большему, кол-во голов от большего к меньшему
+    - Реализован вывод во frontend приложении с помощью gridview. Доступна сортировка по всем полям, кроме матча (в задании не указано, а потому не реализовывалось, YAGNI)
+  
+ - победа – 3 очка, ничья – 1 очко, поражение – 0 очков
+    - Реализовано через константы у класса, так как не подразумевается потенциальное расширение возможных результатов
+    
+###Административный раздел
 
-DIRECTORY STRUCTURE
--------------------
+- доступ к разделу только для администратора
+    - Ролевая модель в данном случае: гость и администратор. Пользователь общается только с frontend частью. Администратор иеет доступ к backend приложению 
+- возможность работать с командами (CRUD)
+    - Реализован стандартный CRUD функционал для команд, основанный на gii
+- возможность заносить данные об играх (игравшие команды, дата, счёт)
+    - Реализован кастомный функционал заполнения информации о матче, объединяющий несколько сущностей. Основан на gii
 
-```
-common
-    config/              contains shared configurations
-    mail/                contains view files for e-mails
-    models/              contains model classes used in both backend and frontend
-    tests/               contains tests for common classes    
-console
-    config/              contains console configurations
-    controllers/         contains console controllers (commands)
-    migrations/          contains database migrations
-    models/              contains console-specific model classes
-    runtime/             contains files generated during runtime
-backend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains backend configurations
-    controllers/         contains Web controller classes
-    models/              contains backend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for backend application    
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-frontend
-    assets/              contains application assets such as JavaScript and CSS
-    config/              contains frontend configurations
-    controllers/         contains Web controller classes
-    models/              contains frontend-specific model classes
-    runtime/             contains files generated during runtime
-    tests/               contains tests for frontend application
-    views/               contains view files for the Web application
-    web/                 contains the entry script and Web resources
-    widgets/             contains frontend widgets
-vendor/                  contains dependent 3rd-party packages
-environments/            contains environment-based overrides
-```
